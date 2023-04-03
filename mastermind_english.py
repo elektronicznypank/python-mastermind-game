@@ -44,8 +44,8 @@ def mastermind_game():
             print('Invalid number. Number must contain 4 digits.')
             continue
 
-        x_list = list(x)
-        guess_list = list(guess)
+        x_list: list = list(x)
+        guess_list: list = list(guess)
 
         counter += 1
 
