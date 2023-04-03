@@ -26,13 +26,16 @@ from random import randint
 def mastermind_game():
 
     x = str(randint(1000, 9999))
-    counter: int = 0
     guess: str = ''
+    counter: int = 0
 
     print('Welcome to Mastermind game.')
     print('Find a 4-digit number!')
 
     while guess != x:
+
+        in_place: int = 0
+        in_x: int = 0
 
         guess: str = input('Enter the number:\n'
                            '>>> ')
@@ -41,24 +44,22 @@ def mastermind_game():
             print('Invalid number. Number must contain 4 digits.')
             continue
 
+        x_list = list(x)
+        guess_list = list(guess)
+
         counter += 1
 
-        in_place: int = 0
-        in_x: int = 0
-
-        supp_list: list = []
-        x_list: list = list(x[:])
-
-        for i, _ in enumerate(guess):
-            if guess[i] == x[i]:
+        for i in range(3, -1, -1):
+            if guess_list[i] == x_list[i]:
+                guess_list.pop(i)
+                x_list.pop(i)
                 in_place += 1
-                x_list.remove(guess[i])
-                supp_list.append(guess[i])
 
-        for i, _ in enumerate(guess):
-            if guess[i] in x_list and guess[i] not in supp_list:
+        for j in range(len(guess_list) - 1, -1, -1):
+            if guess_list[j] in x_list:
+                x_list.remove(guess_list[j])
+                guess_list.pop(j)
                 in_x += 1
-                x_list.remove(guess[i])
 
         if x == guess:
             pass
